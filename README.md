@@ -15,10 +15,12 @@ behaving a little different.
 ### ensureThat / ensure
 
 The `ensureThat` or `ensure` DSL throws an `Throwable` of the users choice,
-when any other the defined constraints are NOT fulfilled. 
+when any of the defined constraints are NOT fulfilled. 
 
 ```kotlin
+import io.github.endzeitbegins.kotlin.ensured.and
 import io.github.endzeitbegins.kotlin.ensured.validators.hasSize
+import io.github.endzeitbegins.kotlin.ensured.validators.isNotBlank
 import io.github.endzeitbegins.kotlin.ensured.validators.matches
 import io.github.endzeitbegins.kotlin.ensured.validators.whenNotNull
 import my.package.MyCustomEnsureContext.ensure
@@ -31,7 +33,7 @@ data class Foo(
 
     init {
         ensureThat(::bar, matches("""[01]{8}""".toRegex()))
-        ensure(::baz, whenNotNull { hasSize(5) })
+        ensure(::baz, whenNotNull { hasSize(5) and isNotBlank() })
     }
 }
 ```
